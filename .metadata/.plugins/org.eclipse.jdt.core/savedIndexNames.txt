@@ -1,0 +1,12 @@
+INDEX VERSION 1.131+/Users/daria/Desktop/Advanced programming/.metadata/.plugins/org.eclipse.jdt.core
+3837998910.index
+1769795358.index
+2467083433.index
+987986509.index
+677948642.index
+534159938.index
+1142527652.index
+417167466.index
+2373780364.index
+1569773782.index
+1612468433.index

@@ -1,0 +1,129 @@
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
+public class Record {
+	ArrayList<Unit> allUnits = new ArrayList<Unit>();
+	 Lecturer l1 = new Lecturer("Kris", 1234);
+	 Lecturer l2 = new Lecturer("David", 3456);
+	 Lecturer l3 = new Lecturer("Nick", 5678);
+	 Lecturer l4 = new Lecturer("Darren", 7890);
+	
+	 Unit unit1 = new Unit();
+	 Unit unit2 = new Unit();
+	 Unit unit3 = new Unit();
+	 Unit unit4 = new Unit();
+	 Unit unit5 = new Unit();
+	 Unit unit6 = new Unit();
+	 
+	 Student s1 = new Student("Mohammed",191234);
+	 Student s2 = new Student("Soufiene", 192345);
+	 Student s3 = new Student("Matthew", 193456);
+	 Student s4 = new Student("Majdi", 194567);
+	 Student s5 = new Student("Huw", 195678);
+	 Student s6 = new Student("Bob", 196789);
+	 Student s7 = new Student("Elaine", 197890);
+	 Student s8 = new Student("Annabel", 198901);
+	 Student s9 = new Student("Susan", 199012);
+ 
+	public Record() {
+		unit1.setTitle("Advanced Programming");
+		unit2.setTitle("Algorithms and Data Structures");
+		unit3.setTitle("Programming");
+		unit4.setTitle("Enterprise Programming");
+		unit5.setTitle("Software Engineering Methodologies");
+		unit6.setTitle("Introduction to Matthew-Taming");
+		
+		allUnits.add(unit1);
+		allUnits.add(unit2);
+		allUnits.add(unit3);
+		allUnits.add(unit4);
+		allUnits.add(unit5);
+		allUnits.add(unit6);
+	 
+		associationsUnitWithLecturer(unit1,l1);
+		associationsUnitWithLecturer(unit2,l2);
+		associationsUnitWithLecturer(unit3,l2);
+		associationsUnitWithLecturer(unit4,l3);
+		associationsUnitWithLecturer(unit5,l4);
+		associationsUnitWithLecturer(unit6,l4);
+	 
+		associationsUnitWithStudent(unit2, s1);
+		associationsUnitWithStudent(unit3, s1);
+		
+		associationsUnitWithStudent(unit1, s2);
+	 	associationsUnitWithStudent(unit3, s2);
+	 
+	 	associationsUnitWithStudent(unit2, s3);
+	 	associationsUnitWithStudent(unit3, s3);
+	 
+	 	associationsUnitWithStudent(unit4, s4);
+	 	associationsUnitWithStudent(unit5, s4);
+	
+	 	associationsUnitWithStudent(unit4, s5);
+	 	associationsUnitWithStudent(unit6, s5);
+	 
+	 	associationsUnitWithStudent(unit6, s6);
+	 	associationsUnitWithStudent(unit4, s6);
+	 
+	
+	 	associationsUnitWithStudent(unit3, s7);
+	 	associationsUnitWithStudent(unit4, s7);
+	 
+	
+	 	associationsUnitWithStudent(unit2, s8);
+	 	associationsUnitWithStudent(unit1, s8);
+	 
+
+	 	associationsUnitWithStudent(unit6, s9);
+	 	associationsUnitWithStudent(unit1, s9);
+	 
+ }
+  private void associationsUnitWithLecturer(Unit u, Lecturer l) {
+	  u.setLecturer(l);
+	  l.teachesUnit(u);
+  }
+  
+  private void associationsUnitWithStudent(Unit u, Student s) {
+	  u.enrolStudent(s);
+	  s.takesUnit(u);
+  }
+  public void bobsUnits() {
+	  for(Unit u: s6.takesUnit) {
+		  System.out.println(u.getTitle());
+	  }
+  }
+  public void krisStudents() {
+	  for(Unit u: l1.teachesUnit) {
+		 for(Student s: u.students) {
+			 System.out.println(s.getName());
+		 }
+	  }
+  }
+  public void unitWithMoreThanTwoStudents() {
+	  for(Unit u: allUnits) {
+		  if(u.students.size() > 2) {
+			  System.out.println(u.getTitle());
+		  }
+	  }
+  }
+  public void studentsTaughtByOthers() {
+	  ArrayList<Student> students = new ArrayList<Student>();
+	  for(Unit u: allUnits) {
+		  if(u.getLecturer() == l1 && u.getLecturer() == l4) {
+			  for(Student s: u.students)
+				  students.add(s);
+		  }
+	  }
+	  Set<Student> set = new HashSet(students);
+	  students.clear();
+	  students.addAll(set);
+	  for(Student s: students) {
+		  System.out.println(s.getName());
+	  }
+	  
+  }
+  public void mostPopularUnit() {
+	  
+  }
+}

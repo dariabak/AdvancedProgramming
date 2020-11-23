@@ -1,0 +1,11 @@
+
+public class Main {
+	public static void main(String[]args) {
+		Record r = new Record();
+		r.bobsUnits();
+		r.krisStudents();
+		r.unitWithMoreThanTwoStudents();
+		r.studentsTaughtByOthers();
+		r.mostPopularUnit();
+	}
+}

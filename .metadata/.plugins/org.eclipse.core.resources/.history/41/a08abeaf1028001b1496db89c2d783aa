@@ -1,0 +1,13 @@
+
+public class Dog extends Pet{
+	@Override
+	public void stroke() {
+		System.out.println(super.name + " enjoys being stroked");
+		makeNoise();
+	}
+	
+	void makeNoise() {
+		System.out.println(super.name + " makes: hau");
+	}
+
+}

@@ -1,0 +1,42 @@
+import java.time.LocalDateTime;
+
+/**
+ * Simple demo program to show the JobProgressTracker in action
+ * @author K. Welsh
+ *
+ */
+
+public class Main {
+	public static void main(String[] args) {
+		JobProgressTracker tracker = new JobProgressTracker("cakes.db");
+		
+		//uncomment this to empty the file if its getting clumsy
+		//you could just delete cakes.db, if you prefer
+		tracker.clear();
+		
+		JobProgressInfo progress = new JobProgressInfo(1234,"Baking",JobProgressInfo.PROGRESS_STARTED,LocalDateTime.now().minusMinutes(30));
+		JobProgressInfo progress2 = new JobProgressInfo(1234,"Baking",JobProgressInfo.PROGRESS_FINISHED,LocalDateTime.now().minusMinutes(5));
+		JobProgressInfo progress3 = new JobProgressInfo(2345,"Baking",JobProgressInfo.PROGRESS_STARTED,LocalDateTime.now());
+		JobProgressInfo progress4 = new JobProgressInfo(1234,"Icing",JobProgressInfo.PROGRESS_STARTED,LocalDateTime.now());
+		
+		tracker.processProgressUpdate(progress);
+		tracker.processProgressUpdate(progress2);
+		tracker.processProgressUpdate(progress3);
+		tracker.processProgressUpdate(progress4);
+		
+		
+		
+		
+		JobProgressInfo[] infoProcess = tracker.getProgressByProcess("Icing");
+			for(int i=0;i<infoProcess.length;i++) {
+				String status = " finished ";
+				if ( infoProcess[i].getProcessTitle() == "Baking" ) {
+					if ( infoProcess[i].getProgressType() == JobProgressInfo.PROGRESS_STARTED) {
+					status = " started ";
+					}
+				}
+				System.out.println("Job "+ infoProcess[i].getJobID() + status + infoProcess[i].getProcessTitle() + " at "  + infoProcess[i].getTimestamp());			
+		}
+		tracker.close();
+	}	
+	}

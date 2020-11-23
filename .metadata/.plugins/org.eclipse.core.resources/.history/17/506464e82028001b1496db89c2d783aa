@@ -1,0 +1,45 @@
+import java.util.ArrayList;
+import java.util.Random;
+
+public class PetShop {
+	ArrayList<String> catsName = new ArrayList<String>();
+	
+	Pet[] petsInStock;	
+	
+	public PetShop() {
+		petsInStock = new Pet[10]; 
+		for(int i = 0; i <= 9; i++) {
+			if(i <= 2) {
+				petsInStock[i] = new Dog();
+				
+			} else if(i > 2 && i <= 4) {
+				petsInStock[i] = new Cat();
+			} else if(i > 4 && i <= 9) {
+				petsInStock[i] = new Goldfish();
+			}
+		}	
+		
+	}
+	
+	public void buyCat() {
+		boolean catIsFound = false;
+		for(int i = 0; i < petsInStock.length; i++) {
+			if(petsInStock[i] instanceof Cat) {
+				System.out.println(petsInStock[i]);
+				petsInStock[i] = null;
+				catIsFound = true;
+				break;
+			 }
+			}
+		if(catIsFound == false) {
+			return;
+		}
+	}
+
+	public static int getRandom(){
+		   Random r = new Random();
+		   int high = 5;
+		   int result = r.nextInt(high);
+		   return result;
+		}
+}

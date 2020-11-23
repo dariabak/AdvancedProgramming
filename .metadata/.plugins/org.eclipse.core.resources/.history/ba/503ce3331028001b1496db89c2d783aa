@@ -1,0 +1,7 @@
+
+public class Dog extends Pet{
+@Override
+void makeNoise() {
+	System.out.println(super.name + " makes: hau");
+}
+}

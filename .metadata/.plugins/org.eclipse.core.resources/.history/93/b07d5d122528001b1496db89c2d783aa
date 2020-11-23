@@ -1,0 +1,73 @@
+import java.util.ArrayList;
+import java.util.Random;
+
+public class PetShop {
+	ArrayList<String> petsName = new ArrayList<String>();
+	ArrayList<Double> petsCost = new ArrayList<Double>();
+	Random r = new Random();
+	Pet[] petsInStock;	
+	
+	public PetShop() {
+		createArrayOfNames();
+		petsInStock = new Pet[10]; 
+		for(int i = 0; i <= 9; i++) {
+			if(i <= 2) {
+				petsInStock[i] = new Dog();
+				petsInStock[i].setPetAge(r.nextInt(5));
+				petsInStock[i].setPetName(petsName.get(r.nextInt(9)));
+			} else if(i > 2 && i <= 4) {
+				petsInStock[i] = new Cat();
+				petsInStock[i].setPetAge(r.nextInt(5));
+				petsInStock[i].setPetName(petsName.get(r.nextInt(9)));
+			} else if(i > 4 && i <= 9) {
+				petsInStock[i] = new Goldfish();
+				petsInStock[i].setPetAge(r.nextInt(3));
+				petsInStock[i].setPetName(petsName.get(r.nextInt(9)));
+			}
+		}	
+		
+	}
+	
+	public void buyCat() {
+		boolean catIsFound = false;
+		for(int i = 0; i < petsInStock.length; i++) {
+			if(petsInStock[i] instanceof Cat) {
+				System.out.println("Name:" + petsInStock[i].getPetName() + " Age: " + petsInStock[i].getPetAge());
+				petsInStock[i] = null;
+				catIsFound = true;
+				break;
+			 }
+			}
+		if(catIsFound == false) {
+			return;
+		}
+	}
+
+	public void buyDog() {
+		boolean dogIsFound = false;
+		for(int i = 0; i < petsInStock.length; i++) {
+			if(petsInStock[i] instanceof Dog) {
+				System.out.println("Name:" + petsInStock[i].getPetName() + " Age: " + petsInStock[i].getPetAge());
+				petsInStock[i] = null;
+				dogIsFound = true;
+				break;
+			 }
+			}
+		if(dogIsFound == false) {
+			return;
+		}
+	}
+	public void createArrayOfNames() {
+		petsName.add("Luna");
+		petsName.add("Zoe");
+		petsName.add("Lucy");
+		petsName.add("Ace");
+		petsName.add("Bailey");
+		petsName.add("Bb");
+		petsName.add("Bessie");
+		petsName.add("Billy");
+		petsName.add("Dino");
+		petsName.add("Dolly");
+		
+	}
+}

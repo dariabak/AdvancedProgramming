@@ -1,0 +1,11 @@
+
+public class Cat extends Pet implements Strokeable{
+	
+	public void stroke() {
+		System.out.println(super.name + " wanders off and ignores you");
+	}
+	@Override
+	void makeNoise() {
+		System.out.println(super.name + " makes: miau");
+	}
+}

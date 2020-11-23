@@ -1,0 +1,39 @@
+
+public abstract class Pet{
+	String name;
+	int age;
+	double cost;
+
+	String getPetName() {
+		return name;
+	}
+
+	void setPetName(String name) {
+		this.name = name;
+	}
+
+	int getPetAge() {
+		return age;
+	}
+
+	void setPetAge(int age) {
+		this.age = age;
+	}
+	
+	double getPetCost() {
+		return cost;
+	}
+	
+	void setPetCost(double cost) {
+		this.cost = cost;
+	}
+	
+	void makeNoise() {
+		System.out.println(name + " doesn't make any noise");
+	}
+
+	public void stroke() {
+		
+	}
+	
+}

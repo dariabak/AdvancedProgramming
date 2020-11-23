@@ -1,0 +1,22 @@
+
+public class Main {
+
+	public static void main(String[]args) {
+		Pet cat = new Cat();
+		cat.setPetName("Luna");
+		
+		Pet dog = new Dog();
+		dog.setPetName("Abby");
+		
+		Pet fish = new Goldfish();
+		fish.setPetName("Goldy");
+		
+		cat.makeNoise();
+		dog.makeNoise();
+		fish.makeNoise();
+		
+		cat.stroke();
+		dog.stroke();
+		fish.stroke();
+	}
+}

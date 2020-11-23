@@ -1,0 +1,152 @@
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
+public class Record {
+	ArrayList<Unit> allUnits = new ArrayList<Unit>();
+	ArrayList<Student> allStudents = new ArrayList<Student>();
+	
+	 Lecturer l1 = new Lecturer("Kris", 1234);
+	 Lecturer l2 = new Lecturer("David", 3456);
+	 Lecturer l3 = new Lecturer("Nick", 5678);
+	 Lecturer l4 = new Lecturer("Darren", 7890);
+	
+	 Unit unit1 = new Unit();
+	 Unit unit2 = new Unit();
+	 Unit unit3 = new Unit();
+	 Unit unit4 = new Unit();
+	 Unit unit5 = new Unit();
+	 Unit unit6 = new Unit();
+	 
+	 Student sMohammed = new Student("Mohammed",191234);
+	 Student sSoufiene = new Student("Soufiene", 192345);
+	 Student sMatthew = new Student("Matthew", 193456);
+	 Student sMajdi = new Student("Majdi", 194567);
+	 Student sHuw = new Student("Huw", 195678);
+	 Student sBob = new Student("Bob", 196789);
+	 Student sElaine = new Student("Elaine", 197890);
+	 Student sAnnabel = new Student("Annabel", 198901);
+	 Student sSusan = new Student("Susan", 199012);
+ 
+	public Record() {
+		unit1.setTitle("Advanced Programming");
+		unit2.setTitle("Algorithms and Data Structures");
+		unit3.setTitle("Programming");
+		unit4.setTitle("Enterprise Programming");
+		unit5.setTitle("Software Engineering Methodologies");
+		unit6.setTitle("Introduction to Matthew-Taming");
+		
+		allUnits.add(unit1);
+		allUnits.add(unit2);
+		allUnits.add(unit3);
+		allUnits.add(unit4);
+		allUnits.add(unit5);
+		allUnits.add(unit6);
+		
+		allStudents.add(sMohammed);
+		allStudents.add(sSoufiene);
+		allStudents.add(sMatthew);
+		allStudents.add(sMajdi);
+		allStudents.add(sHuw);
+		allStudents.add(sBob);
+		allStudents.add(sElaine);
+		allStudents.add(sAnnabel);
+		allStudents.add(sSusan);
+		
+	 
+		associationsUnitWithLecturer(unit1,l1);
+		associationsUnitWithLecturer(unit2,l2);
+		associationsUnitWithLecturer(unit3,l2);
+		associationsUnitWithLecturer(unit4,l3);
+		associationsUnitWithLecturer(unit5,l4);
+		associationsUnitWithLecturer(unit6,l4);
+	 
+		associationsUnitWithStudent(unit2, sMohammed);
+		associationsUnitWithStudent(unit3, sMohammed);
+		
+		associationsUnitWithStudent(unit1, sSoufiene);
+	 	associationsUnitWithStudent(unit3, sSoufiene);
+	 
+	 	associationsUnitWithStudent(unit2, sMatthew);
+	 	associationsUnitWithStudent(unit3, sMatthew);
+	 
+	 	associationsUnitWithStudent(unit4, sMajdi);
+	 	associationsUnitWithStudent(unit5, sMajdi);
+	
+	 	associationsUnitWithStudent(unit4, sHuw);
+	 	associationsUnitWithStudent(unit6, sHuw);
+	 
+	 	associationsUnitWithStudent(unit6, sBob);
+	 	associationsUnitWithStudent(unit4, sBob);
+	 
+	
+	 	associationsUnitWithStudent(unit3, sElaine);
+	 	associationsUnitWithStudent(unit4, sElaine);
+	 
+	
+	 	associationsUnitWithStudent(unit2, sAnnabel);
+	 	associationsUnitWithStudent(unit1, sAnnabel);
+	 
+
+	 	associationsUnitWithStudent(unit6, sSusan);
+	 	associationsUnitWithStudent(unit1, sSusan);
+	 
+ }
+  private void associationsUnitWithLecturer(Unit u, Lecturer l) {
+	  u.setLecturer(l);
+	  l.teachesUnit(u);
+  }
+  
+  private void associationsUnitWithStudent(Unit u, Student s) {
+	  u.enrolStudent(s);
+	  s.takesUnit(u);
+  }
+  public void bobsUnits() {
+	  for(Unit u: sBob.takesUnit) {
+		  System.out.println(u.getTitle());
+	  }
+  }
+  public void krisStudents() {
+	  for(Unit u: l1.teachesUnit) {
+		 for(Student s: u.students) {
+			 System.out.println(s.getName() + " " + s.getIdNumber());
+		 }
+	  }
+  }
+  public void unitWithMoreThanTwoStudents() {
+	  for(Unit u: allUnits) {
+		  if(u.students.size() > 2) {
+			  System.out.println(u.getTitle());
+		  }
+	  }
+  }
+  public void studentsTaughtByOthers() {
+	  Set<Student> students = new HashSet(allStudents);
+	  for(Student s: allStudents) {
+		  for(Unit u: s.takesUnit) {
+			  if(u.getLecturer() == l1 || u.getLecturer() == l4){
+					  students.remove(s);
+			  }
+		  }
+	  }
+	  for(Student s: students) {
+		  System.out.println(s.getName());
+	  }
+	  
+  }
+  public void mostPopularUnit() {
+	  int maxStudents = 0;
+	  String unit = "";
+	  for(Unit u: allUnits) {
+		  if(u.students.size() > maxStudents){
+			  maxStudents = u.students.size();
+			  unit = u.getTitle();
+		  }
+	  }
+	  for(Unit u: allUnits) {
+		 if(u.students.size() == maxStudents) {
+		  System.out.print(u.getTitle() + ", ");
+		 }
+	  }
+  }
+}

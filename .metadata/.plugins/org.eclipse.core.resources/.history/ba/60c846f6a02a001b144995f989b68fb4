@@ -1,0 +1,95 @@
+import com.db4o.Db4oEmbedded;
+import com.db4o.ObjectContainer;
+import com.db4o.ObjectSet;
+
+public class JobProgressTracker {
+private ObjectContainer db;
+	
+	/**
+	 * Constructs a new tracker, opening or creating the specified database file
+	 * @param filename the database file to open or create
+	 */
+	public JobProgressTracker(String filename) {
+		db = Db4oEmbedded.openFile(filename);
+	}
+	
+	/**
+	 * Updates the tracker on the progress of a job
+	 * @param The JobProgressInfo object representing our update
+	 */
+	public void processProgressUpdate(JobProgressInfo update) {
+		//just put it in the database
+		db.store(update);
+	}
+	
+	/**
+	 * Gets all of the JobProgressInfo objects associated with a particular job ID
+	 * @param jobID the ID of the job whose progress you'd like to find out about
+	 * @return An array of JobProgressInfo objects for the specified job, which will be empty if no progress has been tracked
+	 */
+	public JobProgressInfo[] getJobProgress(int jobID) {
+		//create a blank info object, and set the right job ID
+		JobProgressInfo blank = new JobProgressInfo();
+		blank.setJobID(jobID);
+		
+		//query the database for all objects matching the blank
+		ObjectSet<JobProgressInfo> resultset = db.queryByExample(blank);
+		
+		//put the results into an array
+		JobProgressInfo[] results = new JobProgressInfo[resultset.size()];		
+		for(int i=0;i<resultset.size();i++) {
+			results[i] = resultset.get(i);
+		}
+		
+		return results;
+	}
+	
+	/**
+	 * Removes all of the stored JobProgressInfo objects from the tracker, and from the database file
+	 */
+	public void clear() {
+		ObjectSet<JobProgressInfo> objects = db.queryByExample(new JobProgressInfo());
+		for(JobProgressInfo object : objects) {
+			db.delete(object);
+		}
+	}
+	
+	/**
+	 * Closes the db4o database
+	 */
+	public void close() {
+		db.close();
+	}
+	
+	public JobProgressInfo[] getProgressByProcess(String process) {
+		JobProgressInfo blank = new JobProgressInfo();
+		blank.setProcessTitle(process);
+		
+		//query the database for all objects matching the blank
+		ObjectSet<JobProgressInfo> resultset = db.queryByExample(blank);
+		
+		//put the results into an array
+		JobProgressInfo[] results = new JobProgressInfo[resultset.size()];		
+		for(int i=0;i<resultset.size();i++) {
+			results[i] = resultset.get(i);
+		}
+		
+		return results;
+	}
+	
+	public JobProgressInfo[] getDespatchedJobsInfo() {
+		JobProgressInfo blank = new JobProgressInfo();
+		blank.setProgressType(1);
+		
+		//query the database for all objects matching the blank
+		ObjectSet<JobProgressInfo> resultset = db.queryByExample(blank);
+		
+		//put the results into an array
+		JobProgressInfo[] results = new JobProgressInfo[resultset.size()];		
+		for(int i=0;i<resultset.size();i++) {
+			results[i] = resultset.get(i);
+		}
+		
+		return results;
+	}
+}
